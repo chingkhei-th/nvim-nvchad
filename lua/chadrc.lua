@@ -6,7 +6,7 @@
 -- local M = {}
 
 -- M.base46 = {
--- 	theme = "onenord",
+-- 	theme = "tokyonight",
 
 -- 	-- hl_override = {
 -- 	-- 	Comment = { italic = true },
@@ -22,13 +22,13 @@ local options = {
 
   -- Theme
   base46 = {
-    theme = "onenord", -- default theme
+    theme = "tokyonight", -- default theme
     hl_add = {},
     hl_override = {},
     integrations = {},
     changed_themes = {},
     transparency = false,
-    theme_toggle = { "onenord", "one_light" },
+    theme_toggle = { "tokyonight", "one_light" },
   },
 
   -- UI
