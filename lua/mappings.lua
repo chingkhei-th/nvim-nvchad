@@ -9,11 +9,64 @@ map("i", "jk", "<ESC>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
--- General keymaps
-map("n", "<leader>wq", ":wq<CR>") -- save and quit
-map("n", "<leader>qq", ":q!<CR>") -- quit without saving
-map("n", "<leader>ww", ":w<CR>") -- save
-map("n", "gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
+-- nvchad menu --
+-- mouse users + nvimtree users!
+map({"n", "v"}, "<RightMouse>", function()
+    vim.cmd.exec '"normal! \\<RightMouse>"'
+
+    require("plenary.reload").reload_module "menus"
+    require("plenary.reload").reload_module "menu"
+
+    local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+    require("menu").open(options, { mouse = true, border= true})
+end, {})
+
+-- map("n", "<C-t>", function()
+--     -- local options = {
+--     --     {
+--     --         name = "some thing",
+--     --         cmd = "Telescope",
+--     --     },
+
+--     --     {
+--     --         name = "some thing",
+--     --         cmd = "Telescope",
+--     --     },
+
+--     --     {
+--     --         name = "separator",
+--     --         hl = "ExBlue",
+--     --     },
+
+--     --     {
+--     --         name = "nested menu",
+--     --         items = {
+--     --         {
+--     --             name = "nested menu item",
+--     --             cmd = "Telescope",
+--     --             hl = "NvimInternalError"
+--     --         },
+--     --         {
+--     --             name = "some thing",
+--     --             cmd = "Telescope",
+--     --         },
+--     --     },
+
+--     --     {
+--     --         name = "some thing",
+--     --         cmd = "Telescope",
+--     --     },
+--     -- }
+
+--     require("plenary.reload").reload_module "minty.shades"
+--     -- require("minty.huefy").open()
+--     require("minty.shades").open() 
+--     require("menu").open(options, { mouse = true})
+--     -- require("menu").open(options"default", {})
+--     require("menu").open("default")
+--     require("menu").open("gitsigns")
+--     -- require("themes").open()
+-- end, {})
 
 -- Split window management
 map("n", "<leader>sv", "<C-w>v") -- split window vertically
@@ -30,13 +83,6 @@ map("n", "<leader>to", ":tabnew<CR>") -- open a new tab
 map("n", "<leader>tx", ":tabclose<CR>") -- close a tab
 map("n", "<leader>tn", ":tabn<CR>") -- next tab
 map("n", "<leader>tp", ":tabp<CR>") -- previous tab
-
--- Diff keymaps
-map("n", "<leader>cc", ":diffput<CR>") -- put diff from current to other during diff
-map("n", "<leader>cj", ":diffget 1<CR>") -- get diff from left (local) during merge
-map("n", "<leader>ck", ":diffget 3<CR>") -- get diff from right (remote) during merge
-map("n", "<leader>cn", "]c") -- next diff hunk
-map("n", "<leader>cp", "[c") -- previous diff hunk
 
 -- Quickfix keymaps
 map("n", "<leader>qo", ":copen<CR>") -- open quickfix list
@@ -66,19 +112,6 @@ map('n', '<leader>fm', function() require('telescope.builtin').treesitter({defau
 
 -- Git-blame
 map("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
-
--- Harpoon
-map("n", "<leader>ha", require("harpoon.mark").add_file)
-map("n", "<leader>hh", require("harpoon.ui").toggle_quick_menu)
-map("n", "<leader>h1", function() require("harpoon.ui").nav_file(1) end)
-map("n", "<leader>h2", function() require("harpoon.ui").nav_file(2) end)
-map("n", "<leader>h3", function() require("harpoon.ui").nav_file(3) end)
-map("n", "<leader>h4", function() require("harpoon.ui").nav_file(4) end)
-map("n", "<leader>h5", function() require("harpoon.ui").nav_file(5) end)
-map("n", "<leader>h6", function() require("harpoon.ui").nav_file(6) end)
-map("n", "<leader>h7", function() require("harpoon.ui").nav_file(7) end)
-map("n", "<leader>h8", function() require("harpoon.ui").nav_file(8) end)
-map("n", "<leader>h9", function() require("harpoon.ui").nav_file(9) end)
 
 -- Vim REST Console
 map("n", "<leader>xr", ":call VrcQuery()<CR>") -- Run REST query

@@ -1,28 +1,27 @@
 return {
-    -- {
-    --     'vhyrro/luarocks.nvim',
-    --     priority = 1001, -- this plugin needs to run before anything else
-    --     opts = {
-    --     rocks = { 'magick' },
-    --     },
-    -- },
+	{
+	  "stevearc/conform.nvim",
+	  event = 'BufWritePre', -- uncomment for format on save
+	  opts = require "configs.conform",
+	},
 
-    {
-        "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("configs.treesitter")
-        end,
-    },
+	-- These are some examples, uncomment them if you want to see them work!
+	-- {
+	--   "neovim/nvim-lspconfig",
+	--   config = function()
+	--     require "configs.lspconfig"
+	--   end,
+	-- },	
 
-    {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("nvchad.configs.lspconfig").defaults()
-            require("configs.lspconfig")
-        end,
-    },
+	-- {
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	opts = {
+	-- 		ensure_installed = {
+	-- 			"vim", "lua", "vimdoc",
+	--      "html", "css"
+	-- 		},
+	-- 	},
+	-- },
 
     {
         "williamboman/mason-lspconfig.nvim",
@@ -47,14 +46,6 @@ return {
         dependencies = { "nvim-lint" },
         config = function()
             require("configs.mason-lint")
-        end,
-    },
-
-    {
-        "stevearc/conform.nvim",
-        event = "BufWritePre",
-        config = function()
-            require("configs.conform")
         end,
     },
 
@@ -92,7 +83,7 @@ return {
         -- end)
         -- end,
     },
-
+	
     -- Markdown Rendering
     {
         'MeanderingProgrammer/render-markdown.nvim',
@@ -105,40 +96,13 @@ return {
         opts = {},
     },
 
-    -- Lazydev.nvim
-    {
-        "folke/lazydev.nvim",
-        ft = "lua", -- only load on lua files
-        opts = {
-        library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
-            { path = "luvit-meta/library", words = { "vim%.uv" } },
-        },
-        },
-    },
-    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-    { -- optional completion source for require statements and module annotations
-        "hrsh7th/nvim-cmp",
-        opts = function(_, opts)
-        opts.sources = opts.sources or {}
-        table.insert(opts.sources, {
-            name = "lazydev",
-            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-        })
-        end,
-    },
-    -- { "folke/neodev.nvim", enabled = false }, -- make sure to uninstall or disable neodev.nvim
-
-    -- Git Signs
-    {
-        "tummetott/unimpaired.nvim",
-        config = function()
-        require("unimpaired").setup()
-        end,
-    },
+	-- Git Signs
     {
         "lewis6991/gitsigns.nvim",
+		event = "User FilePost",
+	    opts = function()
+      		return require "nvchad.configs.gitsigns"
+    	end,
         config = function()
         require("gitsigns").setup({
             on_attach = function(bufnr)
@@ -200,4 +164,5 @@ return {
         })
         end,
     },
+
 }

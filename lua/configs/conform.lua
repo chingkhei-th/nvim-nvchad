@@ -2,9 +2,13 @@ local options = {
     formatters_by_ft = {
         lua = { "stylua" },
         -- c = { "clang-format" },
+        css = { "prettier" },
+        html = { "prettier" },
         -- cpp = { "clang-format" },
         -- go = { "gofumpt", "goimports-reviser", "golines" },
         -- haskell = { "fourmolu", "stylish-haskell" },
+        json = { "prettier"},
+        javascript = { "prettier", stop_after_first = true },
         python = { "ruff", "isort", "black" },
     },
 
@@ -33,7 +37,7 @@ local options = {
             prepend_args = {
                 "--column-width", "88",
                 "--line-endings", "Unix",
-                "--indent-type", "Spaces",
+                "--indent-type", "Tabs",
                 "--indent-width", "4",
                 "--quote-style", "AutoPreferDouble",
             },
@@ -44,6 +48,10 @@ local options = {
                 "--fast",
                 "--line-length",
                 "88",
+                "--line-endings", "Unix",
+                "--indent-type", "Tabs",
+                "--indent-width", "4",
+                "--quote-style", "AutoPreferDouble",
             },
         },
         isort = {
@@ -62,3 +70,4 @@ local options = {
 }
 
 require("conform").setup(options)
+

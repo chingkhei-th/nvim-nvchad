@@ -14,13 +14,6 @@ opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,term
 opt.relativenumber = true
 opt.number = true
 
--- Tabs & Indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.autoindent = true
-vim.bo.softtabstop = 2
-
 -- Line Wrapping
 opt.wrap = false
 
@@ -53,10 +46,9 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 
 -- Disable the mouse while in nvim
-opt.mouse = ""
+-- opt.mouse = ""
 
 -- Folding
 opt.foldlevel = 20
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()" -- Utilize Treesitter folds
-
