@@ -1,27 +1,21 @@
 return {
-	{
-	  "stevearc/conform.nvim",
-	  event = 'BufWritePre', -- uncomment for format on save
-	  opts = require "configs.conform",
-	},
+    -- formatting!
+    {
+        "stevearc/conform.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require "configs.conform"
+        end,
+    },
 
-	-- These are some examples, uncomment them if you want to see them work!
-	-- {
-	--   "neovim/nvim-lspconfig",
-	--   config = function()
-	--     require "configs.lspconfig"
-	--   end,
-	-- },	
-
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	opts = {
-	-- 		ensure_installed = {
-	-- 			"vim", "lua", "vimdoc",
-	--      "html", "css"
-	-- 		},
-	-- 	},
-	-- },
+    -- formatting!
+    {
+        "mfussenegger/nvim-lint",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("configs.lint")
+        end,
+    },
 
     {
         "williamboman/mason-lspconfig.nvim",
@@ -32,12 +26,22 @@ return {
         end,
     },
 
+
+    -- lsp stuff
     {
-        "mfussenegger/nvim-lint",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("configs.lint")
-        end,
+        "williamboman/mason.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+        opts = {
+            ensure_installed = {
+                -- LSP
+                "pyright",
+                -- Formatters
+                "black",
+                "isort",
+                -- Linter
+                "ruff",
+            },
+        },
     },
 
     {

@@ -154,7 +154,6 @@ map("n", '<leader>tm', function()
 end)
 
 -- Debugging
-map("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
 map("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
 map("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
 map("n", '<leader>br', "<cmd>lua require'dap'.clear_breakpoints()<cr>")
@@ -163,6 +162,7 @@ map("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>")
 map("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
 map("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
 map("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>")
+map("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>") -- Toogle Breakpoint
 map("n", '<leader>dd', function() require('dap').disconnect(); require('dapui').close(); end)
 map("n", '<leader>dt', function() require('dap').terminate(); require('dapui').close(); end)
 map("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")

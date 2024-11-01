@@ -11,21 +11,30 @@ local lspconfig = require("lspconfig")
 lspconfig.servers = {
     "lua_ls",
     -- "clangd",
-    -- "gopls",
-    -- "hls",
-    -- "ols",
     'cssls',
     'html',
     'jsonls',
-    "pyright",
-    -- "ruff",
 }
 
 -- list of servers configured with default config.
 local default_servers = {
-    -- "ols",
-    -- "pyright",
+    "pyright",
     -- "ruff",
+}
+
+-- pyright setup
+lspconfig.pyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
 }
 
 -- lsps with default config
@@ -37,42 +46,45 @@ for _, lsp in ipairs(default_servers) do
     })
 end
 
--- Ruff LSP settings
+-- Ruff with pyright LSP settings -- 
 ---- 
-local on_attach = function(client, bufnr)
-  if client.name == 'ruff' then
-    -- Disable hover in favor of Pyright
-    client.server_capabilities.hoverProvider = false
-  end
-end
+-- local on_attach = function(client, bufnr)
+--   if client.name == 'ruff' then
+--     -- Disable hover in favor of Pyright
+--     client.server_capabilities.hoverProvider = false
+--   end
+-- end
 
-lspconfig.ruff.setup({
-    on_attach = on_attach,
-    init_options = {
-    settings = {
-      -- Any extra CLI arguments for `ruff` go here.
-      args = {},
-    }
-  }
-})
+-- lspconfig.ruff.setup({
+--     on_attach = on_attach,
+--     init_options = {
+--     settings = {
+--       -- Any extra CLI arguments for `ruff` go here.
+--       args = {},
+--     }
+--   }
+-- })
 
--- Pyright settings
-lspconfig.pyright.setup ({
-  settings = {
-    pyright = {
-      -- Using Ruff's import organizer
-      disableOrganizeImports = true,
-    },
-    python = {
-      analysis = {
-        typeCheckingMode = "off", -- Disable type checking diagnostics
-        -- Ignore all files for analysis to exclusively use Ruff for linting
-        ignore = { '*' },
-      },
-    },
-  },
-})
+-- -- Pyright settings
+-- lspconfig.pyright.setup ({
+--   settings = {
+--     pyright = {
+--       -- Using Ruff's import organizer
+--       disableOrganizeImports = true,
+--     },
+--     python = {
+--       analysis = {
+--         typeCheckingMode = "off", -- Disable type checking diagnostics
+--         -- Ignore all files for analysis to exclusively use Ruff for linting
+--         ignore = { '*' },
+--       },
+--     },
+--   },
+-- })
+----
 
+
+-- C lang & others setup
 -- lspconfig.clangd.setup({
 --     on_attach = function(client, bufnr)
 --         client.server_capabilities.documentFormattingProvider = false

@@ -75,15 +75,6 @@ return {
     end,
   },
 
-  -- formatting!
-  {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    config = function()
-      require("configs.conform")
-    end,
-  },
-
   -- git stuff
   -- {
   --   "lewis6991/gitsigns.nvim",
@@ -92,15 +83,6 @@ return {
   --     return require "nvchad.configs.gitsigns"
   --   end,
   -- },
-
-  -- lsp stuff
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-    opts = function()
-      return require "nvchad.configs.mason"
-    end,
-  },
 
   {
     "neovim/nvim-lspconfig",

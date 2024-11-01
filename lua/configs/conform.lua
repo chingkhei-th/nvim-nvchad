@@ -1,3 +1,35 @@
+local conform = require "conform"
+
+conform.setup {
+  formatters_by_ft = {
+    python = { "black" },
+  },
+  formatters = {
+    -- isort = {
+    --   prepend_args = { "--profile", "black" },
+    -- },
+    black = {
+      prepend_args = { "--quiet" },
+    },
+  },
+  -- Format on save
+  format_on_save = {
+    -- I recommend these options. See :help conform.format for details
+    lsp_fallback = true,
+    timeout_ms = 500,
+  },
+}
+
+-- Optional: Set up format-on-save with a key binding
+vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+  conform.format {
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 500,
+  }
+end, { desc = "Format file or range (in visual mode)" })
+
+-- others formatter
 local options = {
     formatters_by_ft = {
         lua = { "stylua" },
@@ -9,7 +41,7 @@ local options = {
         -- haskell = { "fourmolu", "stylish-haskell" },
         json = { "prettier"},
         javascript = { "prettier", stop_after_first = true },
-        python = { "ruff", "isort", "black" },
+        -- python = { "black", "isort" },
     },
 
     formatters = {
@@ -42,30 +74,12 @@ local options = {
                 "--quote-style", "AutoPreferDouble",
             },
         },
-        -- Python
-        black = {
-            prepend_args = {
-                "--fast",
-                "--line-length",
-                "88",
-                "--line-endings", "Unix",
-                "--indent-type", "Tabs",
-                "--indent-width", "4",
-                "--quote-style", "AutoPreferDouble",
-            },
-        },
-        isort = {
-            prepend_args = {
-                "--profile",
-                "black",
-            },
-        },
     },
 
     format_on_save = {
-        -- These options will be passed to conform.format()
-        timeout_ms = 500,
+        timeout_ms = 1000,  -- Increased timeout
         lsp_fallback = true,
+        async = false,      -- Set to false to prevent race conditions
     },
 }
 
