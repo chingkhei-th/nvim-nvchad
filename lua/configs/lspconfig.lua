@@ -5,49 +5,49 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
-local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 
 -- list of all servers configured.
 lspconfig.servers = {
-    "lua_ls",
-    -- "clangd",
-    'cssls',
-    'html',
-    'jsonls',
+	"lua_ls",
+	-- "clangd",
+	"cssls",
+	"html",
+	"jsonls",
 }
 
 -- list of servers configured with default config.
 local default_servers = {
-    "pyright",
-    -- "ruff",
+	"pyright",
+	-- "ruff",
 }
 
 -- pyright setup
 lspconfig.pyright.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        python = {
-            analysis = {
-                typeCheckingMode = "basic",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-            },
-        },
-    },
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		python = {
+			analysis = {
+				typeCheckingMode = "basic",
+				autoSearchPaths = true,
+				useLibraryCodeForTypes = true,
+			},
+		},
+	},
 }
 
 -- lsps with default config
 for _, lsp in ipairs(default_servers) do
-    lspconfig[lsp].setup({
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-    })
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		on_init = on_init,
+		capabilities = capabilities,
+	}
 end
 
--- Ruff with pyright LSP settings -- 
----- 
+-- Ruff with pyright LSP settings --
+----
 -- local on_attach = function(client, bufnr)
 --   if client.name == 'ruff' then
 --     -- Disable hover in favor of Pyright
@@ -82,7 +82,6 @@ end
 --   },
 -- })
 ----
-
 
 -- C lang & others setup
 -- lspconfig.clangd.setup({
