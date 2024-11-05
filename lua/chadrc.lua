@@ -6,7 +6,7 @@
 -- local M = {}
 
 -- M.base46 = {
--- 	theme = "bearded-arc",
+-- 	theme = "tokyodark",
 
 -- 	-- hl_override = {
 -- 	-- 	Comment = { italic = true },
@@ -22,13 +22,13 @@ local options = {
 
   -- Theme
   base46 = {
-    theme = "bearded-arc", -- default theme
+    theme = "tokyodark", -- default theme
     hl_add = {},
     hl_override = {},
     integrations = {},
     changed_themes = {},
     transparency = true,
-    theme_toggle = { "bearded-arc", "one_light" },
+    theme_toggle = { "tokyodark", "one_light" },
   },
 
   -- UI

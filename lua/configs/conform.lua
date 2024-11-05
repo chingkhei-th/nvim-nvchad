@@ -1,22 +1,24 @@
 local conform = require "conform"
 
 conform.setup {
-	formatters_by_ft = {
-		python = { "black" },
-	},
-	formatters = {
-		isort = {
-			prepend_args = { "--profile", "black" },
-		},
-		black = {
-			prepend_args = { "--quiet" },
-		},
-	},
+    formatters_by_ft = {
+		lua = { 'stylua' },
+        python = { "isort", "black" },
+    },
+  formatters = {
+    isort = {
+      prepend_args = { "--profile", "black" },
+    },
+    black = {
+      prepend_args = { "--quiet" },
+    },
+  },
 	-- Format on save
 	format_on_save = {
 		-- I recommend these options. See :help conform.format for details
 		lsp_fallback = true,
 		timeout_ms = 500,
+		async = false, -- Set to false to prevent race conditions
 	},
 }
 

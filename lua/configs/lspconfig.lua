@@ -14,6 +14,7 @@ lspconfig.servers = {
 	"cssls",
 	"html",
 	"jsonls",
+	"pyright",
 }
 
 -- list of servers configured with default config.

@@ -95,10 +95,10 @@ map("n", "<leader>qc", ":cclose<CR>") -- close quickfix list
 -- Vim-maximizer
 map("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle maximize tab
 
--- Nvim-tree
-map("n", "<leader>ee", ":NvimTreeToggle<CR>") -- toggle file explorer
-map("n", "<leader>er", ":NvimTreeFocus<CR>") -- toggle focus to file explorer
-map("n", "<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
+-- -- Nvim-tree
+-- map("n", "<leader>ee", ":NvimTreeToggle<CR>") -- toggle file explorer
+-- map("n", "<leader>er", ":NvimTreeFocus<CR>") -- toggle focus to file explorer
+-- map("n", "<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
 
 -- Telescope
 map('n', '<leader>ff', require('telescope.builtin').find_files, {})
