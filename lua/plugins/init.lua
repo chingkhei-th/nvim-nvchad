@@ -1,17 +1,13 @@
-return { -- Autoformat
-  'stevearc/conform.nvim',
-  event = { "BufReadPre" },
-  lazy = false,
-  keys = {
-    {
-      '<leader>.',
-      function()
-        require('configs.conform').format { async = false, lsp_fallback = true }
-      end,
-      mode = '',
-      desc = '[F]ormat buffer',
+return {
+    { -- Autoformat
+        'stevearc/conform.nvim',
+        event = { "BufReadPre" },
+        lazy = false,
+        opts = {},
+        config = function()
+            require("configs.conform")
+        end,
     },
-  },
 
     -- formatting!
     {
@@ -173,5 +169,4 @@ return { -- Autoformat
         })
         end,
     },
-
 }

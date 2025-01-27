@@ -73,19 +73,19 @@ return { -- Collection of various small independent pluins/modules
     -- mini.notify
     -- require('mini.notify').setup()
 
-    -- mini.starter dashboard
-    local starter = require 'mini.starter'
-    starter.setup {
-      items = {
-        starter.sections.recent_files(3, true),
-      },
-      content_hooks = {
-        starter.gen_hook.adding_bullet(),
-        starter.gen_hook.aligning('center', 'center'),
-      },
-      header = header_art,
-      footer = footer_art,
-    }
+    -- mini.starter dashboard (UNCOMMENT BELOW CODES TO SHOW DASHBOARD)
+    -- local starter = require 'mini.starter'
+    -- starter.setup {
+    --   items = {
+    --     starter.sections.recent_files(3, true),
+    --   },
+    --   content_hooks = {
+    --     starter.gen_hook.adding_bullet(),
+    --     starter.gen_hook.aligning('center', 'center'),
+    --   },
+    --   header = header_art,
+    --   footer = footer_art,
+    -- }
     require('mini.hipatterns').setup {}
     require('mini.icons').setup {}
   end,
