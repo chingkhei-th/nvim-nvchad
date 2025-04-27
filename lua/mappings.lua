@@ -1,4 +1,4 @@
-require "nvchad.mappings"
+-- require "nvchad.mappings"
 
 -- add yours here
 
@@ -7,168 +7,116 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
+map("i", "<C-e>", "<End>", { desc = "move end of line" })
+map("i", "<C-h>", "<Left>", { desc = "move left" })
+map("i", "<C-l>", "<Right>", { desc = "move right" })
+map("i", "<C-j>", "<Down>", { desc = "move down" })
+map("i", "<C-k>", "<Up>", { desc = "move up" })
 
--- nvchad menu --
--- mouse users + nvimtree users!
-map({"n", "v"}, "<RightMouse>", function()
-    vim.cmd.exec '"normal! \\<RightMouse>"'
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
-    require("plenary.reload").reload_module "menus"
-    require("plenary.reload").reload_module "menu"
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
 
-    local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
-    require("menu").open(options, { mouse = true, border= true})
-end, {})
+map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
+map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
 
--- map("n", "<C-t>", function()
---     -- local options = {
---     --     {
---     --         name = "some thing",
---     --         cmd = "Telescope",
---     --     },
 
---     --     {
---     --         name = "some thing",
---     --         cmd = "Telescope",
---     --     },
+map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
+map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
+map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
 
---     --     {
---     --         name = "separator",
---     --         hl = "ExBlue",
---     --     },
+map({ "n", "x" }, "<leader>fm", function()
+  require("conform").format { lsp_fallback = true }
+end, { desc = "general format file" })
 
---     --     {
---     --         name = "nested menu",
---     --         items = {
---     --         {
---     --             name = "nested menu item",
---     --             cmd = "Telescope",
---     --             hl = "NvimInternalError"
---     --         },
---     --         {
---     --             name = "some thing",
---     --             cmd = "Telescope",
---     --         },
---     --     },
+-- global lsp mappings
+map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
---     --     {
---     --         name = "some thing",
---     --         cmd = "Telescope",
---     --     },
---     -- }
+-- tabufline
+map("n", "<C-t>", "<cmd>enew<CR>", { desc = "buffer new" })
 
---     require("plenary.reload").reload_module "minty.shades"
---     -- require("minty.huefy").open()
---     require("minty.shades").open() 
---     require("menu").open(options, { mouse = true})
---     -- require("menu").open(options"default", {})
---     require("menu").open("default")
---     require("menu").open("gitsigns")
---     -- require("themes").open()
--- end, {})
+map("n", "<tab>", function()
+  require("nvchad.tabufline").next()
+end, { desc = "buffer goto next" })
 
--- Split window management
-map("n", "<leader>sv", "<C-w>v") -- split window vertically
-map("n", "<leader>sh", "<C-w>s") -- split window horizontally
-map("n", "<leader>se", "<C-w>=") -- make split windows equal width
-map("n", "<leader>sx", ":close<CR>") -- close split window
-map("n", "<leader>sj", "<C-w>-") -- make split window height shorter
-map("n", "<leader>sk", "<C-w>+") -- make split windows height taller
-map("n", "<leader>sl", "<C-w>>5") -- make split windows width bigger 
-map("n", "<leader>sh", "<C-w><5") -- make split windows width smaller
+map("n", "<S-tab>", function()
+  require("nvchad.tabufline").prev()
+end, { desc = "buffer goto prev" })
 
--- Tab management
-map("n", "<leader>to", ":tabnew<CR>") -- open a new tab
-map("n", "<leader>tx", ":tabclose<CR>") -- close a tab
-map("n", "<leader>tn", ":tabn<CR>") -- next tab
-map("n", "<leader>tp", ":tabp<CR>") -- previous tab
+map("n", "<leader>x", function()
+  require("nvchad.tabufline").close_buffer()
+end, { desc = "buffer close" })
 
--- Quickfix keymaps
-map("n", "<leader>qo", ":copen<CR>") -- open quickfix list
-map("n", "<leader>qf", ":cfirst<CR>") -- jump to first quickfix list item
-map("n", "<leader>qn", ":cnext<CR>") -- jump to next quickfix list item
-map("n", "<leader>qp", ":cprev<CR>") -- jump to prev quickfix list item
-map("n", "<leader>ql", ":clast<CR>") -- jump to last quickfix list item
-map("n", "<leader>qc", ":cclose<CR>") -- close quickfix list
+-- Comment
+map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
--- Vim-maximizer
-map("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle maximize tab
+-- nvimtree
+map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
+map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
--- -- Nvim-tree
--- map("n", "<leader>ee", ":NvimTreeToggle<CR>") -- toggle file explorer
--- map("n", "<leader>er", ":NvimTreeFocus<CR>") -- toggle focus to file explorer
--- map("n", "<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
+-- telescope
+map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
+map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
+map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
+map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
+map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
+map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
+map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 
--- Telescope
-map('n', '<leader>ff', require('telescope.builtin').find_files, {})
-map('n', '<leader>fg', require('telescope.builtin').live_grep, {})
-map('n', '<leader>fb', require('telescope.builtin').buffers, {})
-map('n', '<leader>fh', require('telescope.builtin').help_tags, {})
-map('n', '<leader>fs', require('telescope.builtin').current_buffer_fuzzy_find, {})
-map('n', '<leader>fo', require('telescope.builtin').lsp_document_symbols, {})
-map('n', '<leader>fi', require('telescope.builtin').lsp_incoming_calls, {})
-map('n', '<leader>fm', function() require('telescope.builtin').treesitter({default_text=":method:"}) end)
+map("n", "<leader>th", function()
+  require("nvchad.themes").open()
+end, { desc = "telescope nvchad themes" })
 
--- Git-blame
-map("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
+map(
+  "n",
+  "<leader>fa",
+  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+  { desc = "telescope find all files" }
+)
 
--- Vim REST Console
-map("n", "<leader>xr", ":call VrcQuery()<CR>") -- Run REST query
+-- terminal
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
--- LSP
-map('n', '<leader>gg', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-map('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-map('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
-map('v', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
-map('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
-map('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-map('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-map('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-map('i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
+-- Clipboard mappings (like normal editors)
+-- Copy/yank selection to system clipboard with Ctrl+c in visual mode
+map("v", "<C-c>", '"+y', { noremap = true, silent = true, desc = "Copy to system clipboard (Ctrl+c)" })
+-- Paste from system clipboard with Ctrl+v in normal and insert mode
+map("n", "<C-v>", '"+p', { noremap = true, silent = true, desc = "Paste from system clipboard (Ctrl+v)" })
+map("i", "<C-v>", '<C-o>"+p', { noremap = true, silent = true, desc = "Paste from system clipboard (Ctrl+v)" })
 
--- Filetype-specific keymaps (these can be done in the ftplugin directory instead if you prefer)
-map("n", '<leader>go', function()
-  if vim.bo.filetype == 'python' then
-    vim.api.nvim_command('PyrightOrganizeImports')
-  end
-end)
+-- new terminals
+map("n", "<leader>i", function()
+  require("nvchad.term").new { pos = "sp" }
+end, { desc = "terminal new horizontal term" })
 
-map("n", '<leader>tc', function()
-  if vim.bo.filetype == 'python' then
-    require('dap-python').test_class();
-  end
-end)
+map("n", "<leader>v", function()
+  require("nvchad.term").new { pos = "vsp" }
+end, { desc = "terminal new vertical term" })
 
-map("n", '<leader>tm', function()
-  if vim.bo.filetype == 'python' then
-    require('dap-python').test_method();
-  end
-end)
+-- toggleable
+map({ "n", "t" }, "<A-v>", function()
+  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+end, { desc = "terminal toggleable vertical term" })
 
--- Debugging
-map("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
-map("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
-map("n", '<leader>br', "<cmd>lua require'dap'.clear_breakpoints()<cr>")
-map("n", '<leader>ba', '<cmd>Telescope dap list_breakpoints<cr>')
-map("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>")
-map("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
-map("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
-map("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>")
-map("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>") -- Toogle Breakpoint
-map("n", '<leader>dd', function() require('dap').disconnect(); require('dapui').close(); end)
-map("n", '<leader>dt', function() require('dap').terminate(); require('dapui').close(); end)
-map("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
-map("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
-map("n", '<leader>di', function() require "dap.ui.widgets".hover() end)
-map("n", '<leader>d?', function() local widgets = require "dap.ui.widgets"; widgets.centered_float(widgets.scopes) end)
-map("n", '<leader>df', '<cmd>Telescope dap frames<cr>')
-map("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
-map("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
+map({ "n", "t" }, "<A-h>", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })
+
+map({ "n", "t" }, "<A-i>", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "terminal toggle floating term" })
+
+-- whichkey
+map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
+
+map("n", "<leader>wk", function()
+  vim.cmd("WhichKey " .. vim.fn.input "WhichKey: ")
+end, { desc = "whichkey query lookup" })
