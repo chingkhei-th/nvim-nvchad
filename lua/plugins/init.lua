@@ -83,8 +83,15 @@ return {
 				"markdown",
 				"markdown_inline",
 			},
-			highlight = { enable = true },
-			indent = { enable = true },
+			config = function(_, opts)
+				-- Use the correct module path for treesitter config
+				require("custom.configs.treesitter").setup(opts)
+			end,
+			-- highlight = {
+			-- 	enable = true,
+			-- 	additional_vim_regex_highlighting = false,
+			-- },
+			-- indent = { enable = true },
 		},
 	},
 
