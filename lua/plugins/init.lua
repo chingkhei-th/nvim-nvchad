@@ -122,25 +122,25 @@ return {
 			}
 
 			-- Notifications
-			require("mini.notify").setup {
-				content = {
-					format = function(notif)
-						return notif.msg
-					end,
-				},
-				window = {
-					config = {
-						border = "rounded",
-					},
-					max_width_share = 0.382,
-					winblend = 25,
-				},
-			}
-			-- Override vim.notify with mini.notify
-			vim.notify = require("mini.notify").make_notify()
+			-- require("mini.notify").setup {
+			-- 	content = {
+			-- 		format = function(notif)
+			-- 			return notif.msg
+			-- 		end,
+			-- 	},
+			-- 	window = {
+			-- 		config = {
+			-- 			border = "rounded",
+			-- 		},
+			-- 		max_width_share = 0.382,
+			-- 		winblend = 25,
+			-- 	},
+			-- }
+			-- -- Override vim.notify with mini.notify
+			-- vim.notify = require("mini.notify").make_notify()
 
 			-- Autopairs
-			require("mini.pairs").setup {}
+			-- require("mini.pairs").setup {}
 
 			-- Better text objects
 			require("mini.ai").setup { n_lines = 500 }
