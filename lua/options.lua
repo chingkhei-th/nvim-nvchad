@@ -51,3 +51,6 @@ opt.iskeyword:append "-"
 opt.foldlevel = 20
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()" -- Utilize Treesitter folds
+
+-- Set a longer timeout for key sequences
+vim.o.timeoutlen = 500
