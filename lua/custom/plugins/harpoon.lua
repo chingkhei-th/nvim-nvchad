@@ -4,6 +4,7 @@ return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim" },
+  event = 'BufReadPre', 
   config = function()
     local harpoon = require("harpoon")
     harpoon.setup()
