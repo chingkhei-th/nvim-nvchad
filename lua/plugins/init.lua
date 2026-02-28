@@ -5,7 +5,6 @@ return {
     opts = require "configs.conform",
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -13,65 +12,62 @@ return {
     end,
   },
 
-  -- test new blink
-  -- { import = "nvchad.blink.lazyspec" },
-
   {
-  	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-  	opts = {
-  		ensure_installed = {
-  			"vim",
-			"lua",
-			"vimdoc",
-       		"html",
-			"css",
-			"python",
-			"c",
-			"javascript",
-			"json",
-			"markdown",
-  		},
-  	},
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = {
+        -- Core
+        "vim", "lua", "vimdoc", "regex", "bash", "comment",
+        -- Web / Frontend
+        "html", "css", "scss",
+        "javascript", "typescript", "tsx",
+        "vue", "graphql", "jsdoc",
+        -- Config / Data
+        "json", "json5", "jsonc", "yaml", "toml",
+        "markdown", "markdown_inline",
+        -- DB & Prisma
+        "sql", "prisma",
+        -- Other langs
+        "python", "c",
+      },
+    },
   },
 
-	-- Mini.nvim collection
-	{
-		"echasnovski/mini.nvim",
-		config = function()
-			-- File explorer (primary)
-			require("mini.files").setup {
-				windows = {
-					preview = true,
-					width_focus = 30,
-					width_preview = 30,
-				},
-				mappings = {
-					close = "q",
-					go_in = "l",
-					go_in_plus = "<CR>",
-					go_out = "h",
-					go_out_plus = "H",
-					reset = "<BS>",
-					reveal_cwd = "@",
-					show_help = "g?",
-					synchronize = "=",
-					trim_left = "<",
-					trim_right = ">",
-				},
-			}
-      -- Better text objects
-			require("mini.ai").setup { n_lines = 500 }
+  -- Mini.nvim collection
+  {
+    "echasnovski/mini.nvim",
+    config = function()
+      require("mini.files").setup {
+        windows = {
+          preview = true,
+          width_focus = 30,
+          width_preview = 30,
+        },
+        mappings = {
+          close = "q",
+          go_in = "l",
+          go_in_plus = "<CR>",
+          go_out = "h",
+          go_out_plus = "H",
+          reset = "<BS>",
+          reveal_cwd = "@",
+          show_help = "g?",
+          synchronize = "=",
+          trim_left = "<",
+          trim_right = ">",
+        },
+      }
+      require("mini.ai").setup { n_lines = 500 }
     end,
   },
 
-	-- Better diagnostics
-	{
-		"rachartier/tiny-inline-diagnostic.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("tiny-inline-diagnostic").setup()
-		end,
-	},
-
+  -- Better diagnostics
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("tiny-inline-diagnostic").setup()
+    end,
+  },
 }
