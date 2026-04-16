@@ -29,9 +29,17 @@ return {
         -- DB & Prisma
         "sql", "prisma",
         -- Other langs
-        "python", "c",
+        "python", "c", "cpp",
       },
     },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.lint"
+    end,
   },
 
   -- Mini.nvim collection

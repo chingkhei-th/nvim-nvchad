@@ -8,7 +8,17 @@ local defaults = require "nvchad.configs.lspconfig"
 vim.lsp.handlers["textDocument/signatureHelp"] = function() end
 
 -- Simple servers that need no extra config
-local servers = { "html", "cssls", "pyright", "clangd", "marksman", "sqlls", "cssmodules_ls", "prismals" }
+local servers = {
+  "html",
+  "cssls",
+  "pyright",
+  "clangd",
+  "marksman",
+  "jsonls",
+  "yamlls",
+  "taplo",
+  "cssmodules_ls",
+}
 
 -- Python-specific config (pyright) using new API
 vim.lsp.config("pyright", {
@@ -35,6 +45,26 @@ vim.lsp.config("clangd", {
   cmd = {
     "clangd",
     "--offset-encoding=utf-16",
+  },
+})
+
+-- Lua language server
+vim.lsp.config("lua_ls", {
+  on_attach = defaults.on_attach,
+  on_init = defaults.on_init,
+  capabilities = defaults.capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        checkThirdParty = false,
+      },
+      hint = {
+        enable = true,
+      },
+    },
   },
 })
 
@@ -179,4 +209,4 @@ vim.lsp.config("emmet_language_server", {
 -- Enable simple servers
 vim.lsp.enable(servers)
 -- Enable feature-rich servers
-vim.lsp.enable { "ts_ls", "eslint", "volar", "tailwindcss", "jsonls", "yamlls", "emmet_language_server" }
+vim.lsp.enable { "lua_ls", "ts_ls", "eslint", "volar", "tailwindcss", "emmet_language_server" }

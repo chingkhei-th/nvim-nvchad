@@ -1,35 +1,51 @@
--- Mason: auto-install LSP servers, formatters, and linters
--- Run :MasonToolsInstall after adding new entries here
+local tools = {
+  -- LSP servers
+  "clangd",
+  "lua-language-server",
+  "pyright",
+  "typescript-language-server",
+  "eslint-lsp",
+  "vue-language-server",
+  "tailwindcss-language-server",
+  "html-lsp",
+  "css-lsp",
+  "cssmodules-language-server",
+  "json-lsp",
+  "yaml-language-server",
+  "taplo",
+  "marksman",
+  "emmet-language-server",
+  -- Formatters
+  "clang-format",
+  "stylua",
+  "ruff",
+  "prettierd",
+  "prettier",
+  -- Linters
+  "eslint_d",
+  "stylelint",
+  "markdownlint",
+  "yamllint",
+}
 
 return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = {
-        -- ── LSP Servers ──────────────────────────────────────────────────
-        "html-lsp",               -- HTML
-        "css-lsp",                -- CSS
-        "cssmodules-language-server", -- CSS Modules
-        "typescript-language-server", -- JS / TS / React / Next.js (ts_ls)
-        "eslint-lsp",             -- ESLint (linting + auto-fix)
-        "volar",                  -- Vue 3 / Nuxt
-        "tailwindcss-language-server", -- Tailwind CSS
-        "json-lsp",               -- JSON (package.json, tsconfig, etc.)
-        "yaml-language-server",   -- YAML (GitHub Actions, docker-compose)
-        "emmet-language-server",  -- Emmet abbreviations in HTML/CSS/JSX
-        "prisma-language-server", -- Prisma ORM
-        "sql-formatter",          -- SQL formatting
-        "sqlls",                  -- SQL LSP
+      ensure_installed = tools,
+    },
+  },
 
-        -- ── Formatters ───────────────────────────────────────────────────
-        "prettier",               -- HTML, CSS, JS, TS, Vue, JSON, YAML, MD
-        "prettierd",              -- Faster prettier daemon (conform will use this)
-        "prisma-fmt",             -- Prisma schema formatter (via prismals)
-
-        -- ── Linters ──────────────────────────────────────────────────────
-        "eslint_d",               -- Faster ESLint daemon for linting
-        "stylelint",              -- CSS / SCSS linter
-      },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    event = "VeryLazy",
+    opts = {
+      ensure_installed = tools,
+      auto_update = false,
+      run_on_start = true,
+      start_delay = 3000,
+      debounce_hours = 12,
     },
   },
 }

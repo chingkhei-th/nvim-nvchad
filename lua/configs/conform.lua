@@ -1,7 +1,9 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
-    python = { "ruff" },
+    python = { "ruff_format" },
+    c = { "clang_format" },
+    cpp = { "clang_format" },
     -- Web / Frontend — prefer prettierd (faster daemon), fall back to prettier
     javascript = { "prettierd", "prettier", stop_after_first = true },
     javascriptreact = { "prettierd", "prettier", stop_after_first = true },
@@ -17,6 +19,7 @@ local options = {
     yaml = { "prettierd", "prettier", stop_after_first = true },
     markdown = { "prettierd", "prettier", stop_after_first = true },
     graphql = { "prettierd", "prettier", stop_after_first = true },
+    toml = { "taplo" },
     -- Prisma
     prisma = { "prisma_fmt" },
   },
